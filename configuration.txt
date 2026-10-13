@@ -5,5 +5,15 @@
         - git clone "copie le lien"
 
 
+-- Ajout dans un git
+    1 git add .
+    2 git commit -m "message a envoyer"
+    3 git push
+
+
+-- Rehefa miasa en equipe dia tsy maintsy manao oe
+    1 git pull
+
+
 git config --global user.email "you@example.com"
 git config --global user.name "Your Name"
