@@ -1,0 +1,501 @@
+<!-- FOOTER -->
+<footer>
+  <div class="footer-content">
+
+    <div class="footer-brand">
+      <h2>Lira</h2>
+      <p>Là où les histoires prennent vie.</p>
+    </div>
+
+    <div class="footer-section">
+      <h3>Découvrir</h3>
+      <ul>
+        <li><a href="#">Accueil</a></li>
+        <li><a href="#">Catalogue</a></li>
+        <li><a href="#">Nouveautés</a></li>
+        <li><a href="#">Top ventes</a></li>
+        <li><a href="#">Auteurs</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-section">
+      <h3>Auteurs</h3>
+      <ul>
+        <li><a href="#">Devenir auteur</a></li>
+        <li><a href="#">Publier un livre</a></li>
+        <li><a href="#">Politique de revenus</a></li>
+        <li><a href="#">Auteurs populaires</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-section">
+      <h3>Support</h3>
+      <ul>
+        <li><a href="#">Centre d'aide</a></li>
+        <li><a href="#">Nous contacter</a></li>
+        <li><a href="#">Signaler un problème</a></li>
+        <li><a href="#">CGU</a></li>
+        <li><a href="#">Confidentialité</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; 2026 Lira. Tous droits réservés.</p>
+  </div>
+</footer>
+
+
+
+
+
+
+/* ==========================================
+   LIRA — FOOTER PASTEL GLASSMORPHISM
+   ========================================== */
+
+footer {
+  position: relative;
+  isolation: isolate;
+  bottom: 0;
+
+  width: 100%;
+  margin-top: 80px;
+
+  padding: 60px clamp(20px, 5vw, 70px) 25px;
+
+  color: var(--texte-principale);
+
+  background: linear-gradient(
+    135deg,
+    rgba(255, 250, 244, 0.65) 0%,
+    rgba(237, 246, 255, 0.5) 45%,
+    rgba(249, 221, 229, 0.55) 100%
+  );
+
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 28px 28px 0 0;
+
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+  box-shadow:
+    0 -10px 40px rgba(51, 45, 53, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+
+  overflow: hidden;
+}
+
+/* ==========================================
+   LUEURS DÉCORATIVES
+   ========================================== */
+
+footer::before,
+footer::after {
+  content: "";
+
+  position: absolute;
+
+  width: 300px;
+  aspect-ratio: 1;
+
+  border-radius: 50%;
+
+  filter: blur(70px);
+  opacity: 0.35;
+
+  pointer-events: none;
+  z-index: -1;
+}
+
+footer::before {
+  top: -130px;
+  left: -100px;
+
+  background: #9fc5ed;
+}
+
+footer::after {
+  bottom: -160px;
+  right: -100px;
+
+  background: #ffbfa9;
+}
+
+/* ==========================================
+   CONTENU PRINCIPAL
+   ========================================== */
+
+.footer-content {
+  width: 100%;
+  max-width: 1200px;
+
+  margin-inline: auto;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(200px, 1.4fr)
+    repeat(3, minmax(140px, 1fr));
+
+  gap: clamp(25px, 4vw, 60px);
+
+  align-items: start;
+}
+
+/* ==========================================
+   IDENTITÉ LIRA
+   ========================================== */
+
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  gap: 15px;
+
+  text-align: left;
+}
+
+.footer-brand h2 {
+  width: fit-content;
+
+  font-family: var(--titres-editoriaux);
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+
+  font-weight: 900;
+  font-style: italic;
+
+  letter-spacing: -0.06em;
+
+  background: linear-gradient(
+    120deg,
+    #729bd0,
+    #a678b5,
+    #d5b5e8,
+    #ffbfa9
+  );
+
+  background-size: 200% 200%;
+
+  background-clip: text;
+  -webkit-background-clip: text;
+
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+
+  animation: footer-gradient 8s ease-in-out infinite;
+}
+
+.footer-brand p {
+  max-width: 230px;
+
+  font-family: var(--titres-editoriaux);
+  font-size: 0.95rem;
+  font-style: italic;
+
+  line-height: 1.7;
+
+  color: var(--texte-secondaire);
+}
+
+/* ==========================================
+   COLONNES DU FOOTER
+   ========================================== */
+
+.footer-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  gap: 20px;
+
+  text-align: left;
+}
+
+.footer-section h3 {
+  position: relative;
+
+  width: fit-content;
+
+  font-family: var(--interface);
+  font-size: 0.95rem;
+  font-weight: 700;
+
+  letter-spacing: 0.03em;
+
+  color: var(--texte-principale);
+
+  padding-bottom: 12px;
+}
+
+/* Petite ligne pastel sous chaque titre */
+.footer-section h3::after {
+  content: "";
+
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+  width: 35px;
+  height: 3px;
+
+  border-radius: 50px;
+
+  background: linear-gradient(
+    90deg,
+    var(--focus),
+    var(--badges)
+  );
+
+  transition: width 0.3s ease;
+}
+
+.footer-section:hover h3::after {
+  width: 100%;
+}
+
+/* ==========================================
+   LISTES ET LIENS
+   ========================================== */
+
+.footer-section ul {
+  display: flex;
+  flex-direction: column;
+
+  align-items: flex-start;
+
+  gap: 13px;
+
+  padding: 0;
+  margin: 0;
+
+  list-style: none;
+}
+
+.footer-section ul li {
+  list-style: none;
+}
+
+.footer-section ul li a {
+  position: relative;
+
+  display: inline-block;
+
+  color: var(--texte-secondaire);
+
+  font-family: var(--interface);
+  font-size: 0.88rem;
+
+  line-height: 1.5;
+
+  text-decoration: none;
+
+  transition:
+    color 0.3s ease,
+    transform 0.3s ease;
+}
+
+/* Animation au survol */
+.footer-section ul li a:hover {
+  color: var(--texte-accent);
+
+  transform: translateX(5px);
+}
+
+/* Petit point lumineux */
+.footer-section ul li a::before {
+  content: "";
+
+  position: absolute;
+
+  left: -13px;
+  top: 50%;
+
+  width: 5px;
+  height: 5px;
+
+  border-radius: 50%;
+
+  background: var(--texte-accent);
+
+  opacity: 0;
+
+  transform: translateY(-50%) scale(0);
+
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+.footer-section ul li a:hover::before {
+  opacity: 1;
+
+  transform: translateY(-50%) scale(1);
+}
+
+/* Navigation clavier */
+.footer-section ul li a:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 5px;
+  border-radius: 3px;
+}
+
+/* ==========================================
+   BAS DU FOOTER
+   ========================================== */
+
+.footer-bottom {
+  width: 100%;
+  max-width: 1200px;
+
+  margin: 55px auto 0;
+  padding-top: 25px;
+
+  border-top: 1px solid rgba(113, 102, 117, 0.15);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+}
+
+.footer-bottom p {
+  font-family: var(--interface);
+  font-size: 0.8rem;
+
+  color: var(--texte-tertiaire);
+
+  letter-spacing: 0.02em;
+}
+
+/* ==========================================
+   ANIMATION DU LOGO
+   ========================================== */
+
+@keyframes footer-gradient {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE — TABLETTE
+   ========================================== */
+
+@media (max-width: 900px) {
+  footer {
+    padding: 50px 30px 25px;
+  }
+
+  .footer-content {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 40px;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE — MOBILE
+   ========================================== */
+
+@media (max-width: 600px) {
+  footer {
+    margin-top: 60px;
+
+    padding: 40px 25px 20px;
+
+    border-radius: 22px 22px 0 0;
+  }
+
+  .footer-content {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    column-gap: 20px;
+    row-gap: 35px;
+  }
+
+  .footer-brand {
+    grid-column: 1 / -1;
+
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-brand p {
+    max-width: 280px;
+  }
+
+  .footer-section {
+    gap: 15px;
+  }
+
+  .footer-section h3 {
+    font-size: 0.9rem;
+  }
+
+  .footer-section ul {
+    gap: 12px;
+  }
+
+  .footer-section ul li a {
+    font-size: 0.82rem;
+  }
+
+  .footer-bottom {
+    margin-top: 40px;
+    padding-top: 20px;
+  }
+}
+
+/* ==========================================
+   TRÈS PETITS ÉCRANS
+   ========================================== */
+
+@media (max-width: 380px) {
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .footer-brand {
+    grid-column: auto;
+  }
+
+  .footer-section {
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-section ul {
+    align-items: center;
+  }
+
+  .footer-section h3::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+/* ==========================================
+   ACCESSIBILITÉ
+   ========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .footer-brand h2 {
+    animation: none;
+  }
+
+  .footer-section h3::after,
+  .footer-section ul li a,
+  .footer-section ul li a::before {
+    transition: none;
+  }
+}

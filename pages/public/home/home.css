@@ -1,0 +1,1415 @@
+@import url(../../../main.css);
+
+body {
+  background: var(--bcg-principale);
+  padding-top: 100px;
+}
+
+nav {
+  position: fixed;
+  top: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 80%;
+  padding: 20px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  border-radius: 20px;
+  isolation: isolate;
+
+  overflow: hidden;
+  z-index: 999;
+}
+
+/* Fond flouté */
+nav::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: rgba(255, 250, 244, 0.25);
+
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: inherit;
+
+  box-shadow: 0 8px 30px rgba(51, 45, 53, 0.08);
+
+  z-index: -1;
+  pointer-events: none;
+}
+
+nav p {
+  font-family: var(--interface);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  color: var(--texte-accent);
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Liens */
+nav ul {
+  display: flex;
+  gap: clamp(1px, 20%, 10px);
+}
+
+nav ul li {
+  list-style: none;
+  width: 120px;
+  padding: 5px 0;
+  cursor: pointer;
+  text-align: center;
+  align-content: center;
+  transition: all 0.2s ease;
+}
+
+nav ul li:not(.navSelected):hover {
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.278);
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: var(--texte-principale);
+
+  transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+  color: var(--texte-accent);
+}
+
+/* ==========================================
+   LIRA — HEADER PASTEL ANIMÉ
+   ========================================== */
+
+header {
+  position: relative;
+  isolation: isolate;
+
+  width: 100%;
+  min-height: 350px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 20px;
+  padding: 50px 20px;
+
+  text-align: center;
+  color: var(--texte-principale);
+
+  animation: apparition 1s ease-out both;
+}
+
+/* Halo lumineux derrière le header */
+header::before {
+  content: "";
+  position: absolute;
+
+  width: min(500px, 90%);
+  aspect-ratio: 1;
+
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.45) 0%,
+    rgba(213, 181, 232, 0.25) 35%,
+    rgba(159, 197, 237, 0.15) 60%,
+    transparent 75%
+  );
+
+  filter: blur(35px);
+  border-radius: 50%;
+
+  z-index: -1;
+  pointer-events: none;
+
+  animation: header-glow 6s ease-in-out infinite;
+}
+
+/* ==========================================
+   TITRE LIRA
+   ========================================== */
+
+header h1 {
+  position: relative;
+
+  font-family: var(--titres-editoriaux);
+  font-size: clamp(4rem, 12vw, 8rem);
+
+  font-weight: 900;
+  font-style: italic;
+
+  letter-spacing: -0.07em;
+  line-height: 1.1;
+
+  background: linear-gradient(
+    120deg,
+    #729bd0 0%,
+    #a678b5 25%,
+    #d5b5e8 50%,
+    #ffbfa9 75%,
+    #729bd0 100%
+  );
+
+  background-size: 300% 300%;
+  background-clip: text;
+  -webkit-background-clip: text;
+
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+
+  filter: drop-shadow(0 8px 15px rgba(166, 120, 181, 0.15));
+
+  user-select: none;
+
+  animation:
+    lira-gradient 8s ease-in-out infinite,
+    lira-float 5s ease-in-out infinite;
+}
+
+/* Petite étoile décorative */
+header h1::after {
+  content: "✦";
+
+  position: absolute;
+  top: 0;
+  right: -25px;
+
+  font-family: var(--interface);
+  font-size: clamp(1rem, 3vw, 1.8rem);
+
+  color: #fff1c7;
+  -webkit-text-fill-color: #fff1c7;
+
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+
+  animation: lira-sparkle 3s ease-in-out infinite;
+}
+
+/* ==========================================
+   SOUS-TITRE
+   ========================================== */
+
+header > p {
+  font-family: var(--titres-editoriaux);
+
+  font-size: clamp(1rem, 2.5vw, 1.4rem);
+  font-style: italic;
+
+  color: var(--texte-secondaire);
+
+  letter-spacing: 0.03em;
+  line-height: 1.5;
+
+  animation: subtitle-appear 1.2s ease-out 0.3s both;
+}
+
+/* ==========================================
+   BARRE DE RECHERCHE
+   ========================================== */
+
+header form {
+  position: relative;
+
+  width: min(100%, 650px);
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 8px;
+
+  border-radius: 50px;
+
+  background: rgba(255, 250, 244, 0.45);
+
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+  border: 1px solid rgba(255, 255, 255, 0.65);
+
+  box-shadow:
+    0 10px 30px rgba(51, 45, 53, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+
+  transition:
+    box-shadow 0.3s ease,
+    background 0.3s ease,
+    transform 0.3s ease;
+
+  animation: search-appear 1s ease-out 0.5s both;
+}
+
+/* Effet lorsque la recherche est active */
+header form:focus-within {
+  background: rgba(255, 250, 244, 0.7);
+
+  box-shadow:
+    0 12px 35px rgba(51, 45, 53, 0.15),
+    0 0 0 3px rgba(159, 197, 237, 0.25);
+}
+
+/* Champ de recherche */
+header form input[type="search"] {
+  flex: 1;
+  min-width: 0;
+  width: auto;
+
+  padding: 14px 20px;
+
+  border: none;
+  outline: none;
+  border-radius: 50px;
+
+  background: transparent;
+
+  color: var(--texte-principale);
+  font-family: var(--interface);
+  font-size: 0.95rem;
+
+  box-shadow: none;
+}
+
+header form input[type="search"]::placeholder {
+  color: var(--texte-tertiaire);
+}
+
+/* Supprime l'ancien effet d'ombre au focus */
+header form input[type="search"]:focus {
+  box-shadow: none;
+}
+
+/* ==========================================
+   BOUTON DE RECHERCHE
+   ========================================== */
+
+header form button {
+  flex-shrink: 0;
+
+  padding: 14px 25px;
+
+  border: none;
+  border-radius: 50px;
+
+  background: linear-gradient(135deg, var(--focus), var(--badges));
+
+  color: var(--texte-principale);
+
+  font-family: var(--interface);
+  font-weight: 600;
+
+  cursor: pointer;
+
+  box-shadow: 0 4px 12px rgba(166, 120, 181, 0.15);
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+header form button:hover {
+  transform: translateY(-2px);
+
+  box-shadow: 0 8px 20px rgba(166, 120, 181, 0.25);
+}
+
+header form button:active {
+  transform: scale(0.96);
+  box-shadow: none;
+}
+
+/* ==========================================
+   ANIMATIONS
+   ========================================== */
+
+@keyframes apparition {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes lira-gradient {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes lira-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+@keyframes lira-sparkle {
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: scale(0.8) rotate(0deg);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.2) rotate(25deg);
+  }
+}
+
+@keyframes header-glow {
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+}
+
+@keyframes subtitle-appear {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes search-appear {
+  from {
+    opacity: 0;
+    transform: translateY(25px) scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 600px) {
+  header {
+    min-height: 300px;
+    padding: 40px 10px;
+    gap: 15px;
+  }
+
+  header h1 {
+    font-size: clamp(3.5rem, 15vw, 5rem);
+  }
+
+  header form {
+    width: 100%;
+    gap: 6px;
+    padding: 6px;
+  }
+
+  header form input[type="search"] {
+    padding: 12px;
+    font-size: 0.85rem;
+  }
+
+  header form button {
+    padding: 12px 15px;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 380px) {
+  header form {
+    flex-direction: column;
+    border-radius: 20px;
+  }
+
+  header form input[type="search"],
+  header form button {
+    width: 100%;
+  }
+}
+
+/* Respect des préférences d'accessibilité */
+@media (prefers-reduced-motion: reduce) {
+  header,
+  header::before,
+  header h1,
+  header h1::after,
+  header > p,
+  header form {
+    animation: none;
+  }
+
+  header form,
+  header form button {
+    transition: none;
+  }
+}
+
+/* ==========================================
+   CORRECTION ILLUSTRATION HERO — LIRA
+   ========================================== */
+
+/* Conteneur */
+.hero-illustration {
+  position: relative;
+  isolation: isolate;
+
+  width: min(100%, 650px);
+  height: 300px;
+
+  margin: 15px auto 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Blobs derrière le livre */
+.hero-blob {
+  z-index: 0;
+}
+
+/* ==========================================
+   LIVRE OUVERT
+   ========================================== */
+
+.hero-book {
+  position: relative;
+  z-index: 3;
+
+  width: min(75%, 340px);
+
+  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.8))
+    drop-shadow(0 15px 25px rgba(166, 120, 181, 0.25));
+
+  animation: hero-book-float 5s ease-in-out infinite;
+}
+
+.hero-book svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ==========================================
+   ORBITES LUMINEUSES
+   ========================================== */
+
+.hero-orbit {
+  position: absolute;
+  z-index: 1;
+
+  width: 75%;
+  height: 150px;
+
+  border: 2px solid rgba(255, 255, 255, 0.65);
+  border-radius: 50%;
+
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+.hero-orbit--one {
+  transform: rotate(-18deg);
+}
+
+.hero-orbit--two {
+  width: 65%;
+  height: 130px;
+
+  border-color: rgba(255, 255, 255, 0.3);
+
+  transform: rotate(25deg);
+}
+
+/* ==========================================
+   PARTICULES PASTEL
+   ========================================== */
+
+.hero-particle {
+  position: absolute;
+  z-index: 2;
+
+  width: 12px;
+  height: 12px;
+
+  border-radius: 50%;
+
+  background: radial-gradient(circle at 30% 30%, #ffffff, #e9c8f5 55%, #a8c9f2);
+
+  border: 1px solid rgba(255, 255, 255, 0.8);
+
+  box-shadow:
+    0 0 12px rgba(255, 255, 255, 0.7),
+    0 0 20px rgba(213, 181, 232, 0.3);
+
+  animation: hero-particle-float 6s ease-in-out infinite;
+}
+
+.particle--one {
+  top: 18%;
+  left: 22%;
+  width: 22px;
+  height: 22px;
+}
+
+.particle--two {
+  top: 30%;
+  right: 18%;
+  width: 15px;
+  height: 15px;
+  animation-delay: -2s;
+}
+
+.particle--three {
+  bottom: 20%;
+  left: 28%;
+  width: 9px;
+  height: 9px;
+  animation-delay: -4s;
+}
+
+.particle--four {
+  bottom: 28%;
+  right: 24%;
+  width: 7px;
+  height: 7px;
+  animation-delay: -1s;
+}
+
+/* ==========================================
+   ÉTOILES
+   ========================================== */
+
+.hero-star {
+  position: absolute;
+  z-index: 4;
+
+  color: rgba(255, 255, 255, 0.95);
+
+  text-shadow:
+    0 0 10px rgba(255, 255, 255, 0.9),
+    0 0 20px rgba(255, 220, 245, 0.7);
+
+  animation: hero-twinkle 3s ease-in-out infinite;
+}
+
+.star--one {
+  top: 15%;
+  right: 30%;
+  font-size: 28px;
+}
+
+.star--two {
+  bottom: 15%;
+  left: 20%;
+  font-size: 22px;
+  animation-delay: -1s;
+}
+
+.star--three {
+  bottom: 25%;
+  right: 12%;
+  font-size: 16px;
+  animation-delay: -2s;
+}
+
+/* ==========================================
+   ANIMATIONS
+   ========================================== */
+
+@keyframes hero-book-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes hero-blob-float {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+
+  to {
+    transform: translate(20px, -15px) scale(1.15);
+  }
+}
+
+@keyframes hero-particle-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes hero-twinkle {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(0.8);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+
+@media (max-width: 600px) {
+  .hero-illustration {
+    height: 220px;
+  }
+
+  .hero-book {
+    width: min(80%, 260px);
+  }
+
+  .hero-blob {
+    width: 160px;
+    height: 160px;
+    filter: blur(40px);
+  }
+
+  .hero-orbit {
+    height: 110px;
+  }
+
+  .hero-orbit--two {
+    height: 90px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-book,
+  .hero-blob,
+  .hero-particle,
+  .hero-star {
+    animation: none;
+  }
+}
+
+/*
+===================================================
+
+              TENDANCES CETTE SEMAINE
+                
+===================================================
+*/
+.tendances {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+
+  color: var(--texte-principale);
+}
+
+.tendances h2 {
+  font-family: var(--titres-editoriaux);
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  color: var(--texte-principale);
+  text-align: left;
+}
+
+.resultTendance {
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
+
+  gap: 25px;
+  align-items: stretch;
+}
+
+.book-card {
+  position: relative;
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 12px;
+
+  border-radius: 20px;
+
+  background: rgba(255, 250, 244, 0.55);
+
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+
+  border: 1px solid rgba(255, 255, 255, 0.6);
+
+  box-shadow:
+    0 8px 25px rgba(51, 45, 53, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+
+  overflow: hidden;
+
+  transition:
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.4s ease,
+    background 0.4s ease;
+
+  animation: book-appear 0.8s ease both;
+}
+
+/* Apparition progressive */
+.book-card:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.book-card:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.book-card:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.book-card:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+/* Survol */
+.book-card:hover {
+  transform: translateY(-10px) rotate(1deg);
+
+  background: rgba(255, 250, 244, 0.75);
+
+  box-shadow:
+    0 20px 40px rgba(51, 45, 53, 0.15),
+    0 5px 15px rgba(166, 120, 181, 0.12);
+}
+
+/* Animation d'apparition */
+@keyframes book-appear {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.book-cover {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+
+  border-radius: 14px;
+  overflow: hidden;
+
+  background: var(--bcg-coton);
+}
+
+.book-cover img {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+  object-fit: cover;
+
+  transition:
+    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.4s ease;
+}
+
+.book-card:hover .book-cover img {
+  transform: scale(1.08);
+  filter: saturate(1.15);
+}
+
+/* Badge tendance */
+.book-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+
+  padding: 6px 12px;
+
+  border-radius: 50px;
+
+  font-size: 0.75rem;
+  font-weight: 600;
+
+  color: var(--texte-principale);
+  background: rgba(255, 255, 255, 0.8);
+
+  backdrop-filter: blur(10px);
+
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+.book-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  gap: 10px;
+  margin-top: auto;
+}
+
+.book-rating {
+  color: var(--avertissement);
+  font-weight: 700;
+}
+
+.book-price {
+  color: var(--texte-accent);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.book-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  margin-top: 10px;
+  padding: 12px 15px;
+
+  border-radius: 12px;
+
+  background: linear-gradient(135deg, var(--focus), var(--badges));
+
+  color: var(--texte-principale);
+  text-decoration: none;
+
+  font-family: var(--interface);
+  font-size: 0.9rem;
+  font-weight: 600;
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.book-button:hover {
+  transform: translateY(-3px);
+
+  box-shadow: 0 6px 18px rgba(166, 120, 181, 0.25);
+}
+
+.book-button:active {
+  transform: scale(0.97);
+}
+
+@media (max-width: 600px) {
+  .resultTendance {
+    gap: 15px;
+  }
+
+  .book-card {
+    padding: 10px;
+    border-radius: 16px;
+  }
+
+  .book-info {
+    padding: 12px 4px 4px;
+  }
+
+  .book-info h3 {
+    font-size: 1rem;
+  }
+}
+
+/* Réduction des animations */
+@media (prefers-reduced-motion: reduce) {
+  .book-card,
+  .book-cover img,
+  .book-button {
+    animation: none;
+    transition: none;
+  }
+}
+
+/* ==========================================
+   LIRA — FOOTER PASTEL GLASSMORPHISM
+   ========================================== */
+
+footer {
+  position: relative;
+  isolation: isolate;
+  bottom: 0;
+
+  width: 100%;
+  margin-top: 80px;
+
+  padding: 60px clamp(20px, 5vw, 70px) 25px;
+
+  color: var(--texte-principale);
+
+  background: linear-gradient(
+    135deg,
+    rgba(255, 250, 244, 0.65) 0%,
+    rgba(237, 246, 255, 0.5) 45%,
+    rgba(249, 221, 229, 0.55) 100%
+  );
+
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 28px 28px 0 0;
+
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+  box-shadow:
+    0 -10px 40px rgba(51, 45, 53, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+
+  overflow: hidden;
+}
+
+/* ==========================================
+   LUEURS DÉCORATIVES
+   ========================================== */
+
+footer::before,
+footer::after {
+  content: "";
+
+  position: absolute;
+
+  width: 300px;
+  aspect-ratio: 1;
+
+  border-radius: 50%;
+
+  filter: blur(70px);
+  opacity: 0.35;
+
+  pointer-events: none;
+  z-index: -1;
+}
+
+footer::before {
+  top: -130px;
+  left: -100px;
+
+  background: #9fc5ed;
+}
+
+footer::after {
+  bottom: -160px;
+  right: -100px;
+
+  background: #ffbfa9;
+}
+
+/* ==========================================
+   CONTENU PRINCIPAL
+   ========================================== */
+
+.footer-content {
+  width: 100%;
+  max-width: 1200px;
+
+  margin-inline: auto;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(200px, 1.4fr)
+    repeat(3, minmax(140px, 1fr));
+
+  gap: clamp(25px, 4vw, 60px);
+
+  align-items: start;
+}
+
+/* ==========================================
+   IDENTITÉ LIRA
+   ========================================== */
+
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  gap: 15px;
+
+  text-align: left;
+}
+
+.footer-brand h2 {
+  width: fit-content;
+
+  font-family: var(--titres-editoriaux);
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+
+  font-weight: 900;
+  font-style: italic;
+
+  letter-spacing: -0.06em;
+
+  background: linear-gradient(120deg, #729bd0, #a678b5, #d5b5e8, #ffbfa9);
+
+  background-size: 200% 200%;
+
+  background-clip: text;
+  -webkit-background-clip: text;
+
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+
+  animation: footer-gradient 8s ease-in-out infinite;
+}
+
+.footer-brand p {
+  max-width: 230px;
+
+  font-family: var(--titres-editoriaux);
+  font-size: 0.95rem;
+  font-style: italic;
+
+  line-height: 1.7;
+
+  color: var(--texte-secondaire);
+}
+
+/* ==========================================
+   COLONNES DU FOOTER
+   ========================================== */
+
+.footer-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  gap: 20px;
+
+  text-align: left;
+}
+
+.footer-section h3 {
+  position: relative;
+
+  width: fit-content;
+
+  font-family: var(--interface);
+  font-size: 0.95rem;
+  font-weight: 700;
+
+  letter-spacing: 0.03em;
+
+  color: var(--texte-principale);
+
+  padding-bottom: 12px;
+}
+
+/* Petite ligne pastel sous chaque titre */
+.footer-section h3::after {
+  content: "";
+
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+  width: 35px;
+  height: 3px;
+
+  border-radius: 50px;
+
+  background: linear-gradient(90deg, var(--focus), var(--badges));
+
+  transition: width 0.3s ease;
+}
+
+.footer-section:hover h3::after {
+  width: 100%;
+}
+
+/* ==========================================
+   LISTES ET LIENS
+   ========================================== */
+
+.footer-section ul {
+  display: flex;
+  flex-direction: column;
+
+  align-items: flex-start;
+
+  gap: 13px;
+
+  padding: 0;
+  margin: 0;
+
+  list-style: none;
+}
+
+.footer-section ul li {
+  list-style: none;
+}
+
+.footer-section ul li a {
+  position: relative;
+
+  display: inline-block;
+
+  color: var(--texte-secondaire);
+
+  font-family: var(--interface);
+  font-size: 0.88rem;
+
+  line-height: 1.5;
+
+  text-decoration: none;
+
+  transition:
+    color 0.3s ease,
+    transform 0.3s ease;
+}
+
+/* Animation au survol */
+.footer-section ul li a:hover {
+  color: var(--texte-accent);
+
+  transform: translateX(5px);
+}
+
+/* Petit point lumineux */
+.footer-section ul li a::before {
+  content: "";
+
+  position: absolute;
+
+  left: -13px;
+  top: 50%;
+
+  width: 5px;
+  height: 5px;
+
+  border-radius: 50%;
+
+  background: var(--texte-accent);
+
+  opacity: 0;
+
+  transform: translateY(-50%) scale(0);
+
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+.footer-section ul li a:hover::before {
+  opacity: 1;
+
+  transform: translateY(-50%) scale(1);
+}
+
+/* Navigation clavier */
+.footer-section ul li a:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 5px;
+  border-radius: 3px;
+}
+
+/* ==========================================
+   BAS DU FOOTER
+   ========================================== */
+
+.footer-bottom {
+  width: 100%;
+  max-width: 1200px;
+
+  margin: 55px auto 0;
+  padding-top: 25px;
+
+  border-top: 1px solid rgba(113, 102, 117, 0.15);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+}
+
+.footer-bottom p {
+  font-family: var(--interface);
+  font-size: 0.8rem;
+
+  color: var(--texte-tertiaire);
+
+  letter-spacing: 0.02em;
+}
+
+/* ==========================================
+   ANIMATION DU LOGO
+   ========================================== */
+
+@keyframes footer-gradient {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE — TABLETTE
+   ========================================== */
+
+@media (max-width: 900px) {
+  footer {
+    padding: 50px 30px 25px;
+  }
+
+  .footer-content {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 40px;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE — MOBILE
+   ========================================== */
+
+@media (max-width: 600px) {
+  footer {
+    margin-top: 60px;
+
+    padding: 40px 25px 20px;
+
+    border-radius: 22px 22px 0 0;
+  }
+
+  .footer-content {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    column-gap: 20px;
+    row-gap: 35px;
+  }
+
+  .footer-brand {
+    grid-column: 1 / -1;
+
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-brand p {
+    max-width: 280px;
+  }
+
+  .footer-section {
+    gap: 15px;
+  }
+
+  .footer-section h3 {
+    font-size: 0.9rem;
+  }
+
+  .footer-section ul {
+    gap: 12px;
+  }
+
+  .footer-section ul li a {
+    font-size: 0.82rem;
+  }
+
+  .footer-bottom {
+    margin-top: 40px;
+    padding-top: 20px;
+  }
+}
+
+/* ==========================================
+   TRÈS PETITS ÉCRANS
+   ========================================== */
+
+@media (max-width: 380px) {
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .footer-brand {
+    grid-column: auto;
+  }
+
+  .footer-section {
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-section ul {
+    align-items: center;
+  }
+
+  .footer-section h3::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+/* ==========================================
+   ACCESSIBILITÉ
+   ========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .footer-brand h2 {
+    animation: none;
+  }
+
+  .footer-section h3::after,
+  .footer-section ul li a,
+  .footer-section ul li a::before {
+    transition: none;
+  }
+}

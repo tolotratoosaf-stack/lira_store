@@ -1,0 +1,91 @@
+:root {
+  /* COULEURS DE FOND */
+  --bcg-principale: linear-gradient(
+    135deg,
+    #9fc5ed 0%,
+    #d5b5e8 50%,
+    #ffbfa9 100%
+  );
+  --bcg-brume: linear-gradient(180deg, #fffaf4, #f5ede4);
+  --bcg-coton: linear-gradient(135deg, #f9f1e8, #f0e3d8);
+  --bcg-ciel: linear-gradient(135deg, #edf6ff, #dfebfa);
+  --bcg-rosee: linear-gradient(135deg, #fff0ed, #f9dde5);
+  --bcg-menthe: linear-gradient(135deg, #edf8f0, #d9ede0);
+
+  /* COULEURS DE BASE */
+  --fond-secondaire: #f5ede4;
+  --surface: #ffffff;
+  --bordure: #e8dcd4;
+
+  /* TEXTE */
+  --texte-principale: #332d35;
+  --texte-secondaire: #716675;
+  --texte-tertiaire: #a69aa9;
+
+  /* COULEURS D'ACCENT */
+  --focus: #9fc5ed;
+  --hover: #729bd0;
+  --badges: #dfc3f0;
+  --texte-accent: #a678b5;
+  --CTA-secondaire: #ffbfa9;
+
+  /* NOTIFICATION */
+  --succes: #b9dcc9;
+  --attention: #ebcb91;
+
+  /* COULEURS SÉMANTIQUES */
+  --valide: #78b69a;
+  --info: #78aee8;
+  --avertissement: #dda957;
+  --erreur: #d98291;
+
+  /* POLICES */
+  --interface:
+    system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  --titres-editoriaux: Georgia, "Times New Roman", Times, serif;
+  --reader: Georgia, "Times New Roman", Times, serif;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background-color: var(--texte-accent);
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 99dvw;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+  text-align: center;
+  padding-inline: clamp(10px, 10dvw, 200px);
+  position: relative;
+  font-family: var(--interface);
+}
+
+.navSelected {
+  background-color: var(--fond-secondaire);
+  border-radius: 8px;
+  box-shadow:
+    inset 2px 2px 2px #77777780,
+    inset -2px -2px 2px #fff;
+}

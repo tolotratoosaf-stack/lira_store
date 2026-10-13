@@ -1,0 +1,97 @@
+<!-- NAVIGATION -->
+    <nav>
+      <p>Lira</p>
+      <ul class="right">
+        <li class="navSelected"><a href="../home/home.html">Acceuil</a></li>
+        <li><a href="../listBook/listBook.html">Livres</a></li>
+        <li><a href="#">Categories</a></li>
+        <li><a href="#">Devenir auteur</a></li>
+        <li><a href="../../auth/login/login.html">Connexion</a></li>
+      </ul>
+    </nav>
+
+
+
+
+
+nav {
+  position: fixed;
+  top: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 80%;
+  padding: 20px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  border-radius: 20px;
+  isolation: isolate;
+
+  overflow: hidden;
+  z-index: 999;
+}
+
+/* Fond flouté */
+nav::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: rgba(255, 250, 244, 0.25);
+
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: inherit;
+
+  box-shadow: 0 8px 30px rgba(51, 45, 53, 0.08);
+
+  z-index: -1;
+  pointer-events: none;
+}
+
+nav p {
+  font-family: var(--interface);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  color: var(--texte-accent);
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Liens */
+nav ul {
+  display: flex;
+  gap: clamp(1px, 20%, 10px);
+}
+
+nav ul li {
+  list-style: none;
+  width: 120px;
+  padding: 5px 0;
+  cursor: pointer;
+  text-align: center;
+  align-content: center;
+  transition: all 0.2s ease;
+}
+
+nav ul li:not(.navSelected):hover {
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.278);
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: var(--texte-principale);
+
+  transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+  color: var(--texte-accent);
+}

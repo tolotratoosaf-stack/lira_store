@@ -1,0 +1,9 @@
+-- Utilisation github
+    1 Creation d'un repository
+    2 Copier le lien
+    3 dans bash
+        - git clone "copie le lien"
+
+
+git config --global user.email "you@example.com"
+git config --global user.name "Your Name"

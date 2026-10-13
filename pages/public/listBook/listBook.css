@@ -1,0 +1,1716 @@
+@import url(../../../main.css);
+
+body {
+  background: var(--bcg-principale);
+  padding-inline: clamp(16px, 3vw, 48px);
+}
+
+/*
+========================================
+
+            NAVIGATION
+            
+========================================
+*/
+
+nav {
+  position: fixed;
+  top: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 80%;
+  padding: 20px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  border-radius: 20px;
+  isolation: isolate;
+
+  overflow: hidden;
+  z-index: 999;
+}
+
+/* Fond flouté */
+nav::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: rgba(255, 250, 244, 0.25);
+
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: inherit;
+
+  box-shadow: 0 8px 30px rgba(51, 45, 53, 0.08);
+
+  z-index: -1;
+  pointer-events: none;
+}
+
+nav p {
+  font-family: var(--interface);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  color: var(--texte-accent);
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Liens */
+nav ul {
+  display: flex;
+  gap: clamp(1px, 20%, 10px);
+}
+
+nav ul li {
+  list-style: none;
+  width: 120px;
+  padding: 5px 0;
+  cursor: pointer;
+  text-align: center;
+  align-content: center;
+  transition: all 0.2s ease;
+}
+
+nav ul li:not(.navSelected):hover {
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.278);
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: var(--texte-principale);
+
+  transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+  color: var(--texte-accent);
+}
+
+/* 
+================================================
+
+            HEADER
+
+================================================
+*/
+/* ==================================================
+   LIRA — PAGE CATALOGUE
+   ================================================== */
+
+/* --------------------------------------------------
+   EN-TÊTE DU CATALOGUE
+   -------------------------------------------------- */
+
+body > header {
+  position: relative;
+  isolation: isolate;
+
+  width: 100%;
+  margin-top: 120px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 18px;
+  padding: 45px 20px 35px;
+
+  text-align: center;
+  color: var(--texte-principale);
+}
+
+/* Halo pastel */
+body > header::before {
+  content: "";
+
+  position: absolute;
+  z-index: -1;
+
+  top: 50%;
+  left: 50%;
+
+  width: min(600px, 100%);
+  height: 250px;
+
+  transform: translate(-50%, -50%);
+
+  background: radial-gradient(
+    ellipse,
+    rgba(255, 255, 255, 0.55),
+    rgba(213, 181, 232, 0.25) 45%,
+    transparent 75%
+  );
+
+  filter: blur(35px);
+  pointer-events: none;
+}
+
+/* Titre principal */
+body > header h1 {
+  font-family: var(--titres-editoriaux);
+
+  font-size: clamp(2.8rem, 6vw, 5rem);
+  font-style: italic;
+  font-weight: 800;
+
+  letter-spacing: -0.055em;
+  line-height: 1.15;
+
+  background: linear-gradient(120deg, #729bd0, #a678b5, #d5b5e8, #ffbfa9);
+
+  background-size: 200% 200%;
+
+  background-clip: text;
+  -webkit-background-clip: text;
+
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+
+  animation: catalogue-gradient 9s ease-in-out infinite;
+}
+
+/* --------------------------------------------------
+   FIL D'ARIANE
+   -------------------------------------------------- */
+
+/* Classe conservée telle qu'elle existe dans ton HTML */
+.deabcrumb {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+
+  gap: 8px;
+
+  font-family: var(--interface);
+  font-size: 0.9rem;
+}
+
+.deabcrumb a {
+  color: var(--texte-secondaire);
+  text-decoration: none;
+
+  transition: color 0.25s ease;
+}
+
+.deabcrumb a:hover {
+  color: var(--texte-accent);
+}
+
+.deabcrumb a:last-child {
+  color: var(--texte-accent);
+  font-weight: 600;
+}
+
+/* Petit badge "Tous les livres" */
+body > header .result {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 10px 22px;
+
+  border-radius: 50px;
+
+  background: rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  box-shadow: 0 5px 20px rgba(51, 45, 53, 0.05);
+}
+
+body > header .result h3 {
+  font-family: var(--interface);
+  font-size: 0.85rem;
+  font-weight: 600;
+
+  color: var(--texte-secondaire);
+}
+
+/* ==================================================
+   SECTION PRINCIPALE
+   ================================================== */
+
+body > section {
+  width: min(95%, 1500px);
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 35px;
+
+  margin-inline: auto;
+}
+
+/* --------------------------------------------------
+   BARRE DE RECHERCHE
+   -------------------------------------------------- */
+
+.searchBar {
+  width: min(100%, 750px);
+
+  margin-inline: auto;
+  padding: 8px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  border-radius: 50px;
+
+  background: rgba(255, 250, 244, 0.5);
+
+  border: 1px solid rgba(255, 255, 255, 0.7);
+
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+  box-shadow:
+    0 10px 30px rgba(51, 45, 53, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+
+  transition:
+    background 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.searchBar:focus-within {
+  background: rgba(255, 250, 244, 0.75);
+
+  box-shadow:
+    0 12px 35px rgba(51, 45, 53, 0.1),
+    0 0 0 3px rgba(159, 197, 237, 0.2);
+}
+
+.searchBar input[type="search"] {
+  flex: 1;
+  min-width: 0;
+
+  padding: 14px 20px;
+
+  border: none;
+  outline: none;
+
+  border-radius: 50px;
+  background: transparent;
+
+  font-family: var(--interface);
+  font-size: 0.95rem;
+
+  color: var(--texte-principale);
+}
+
+.searchBar input::placeholder {
+  color: var(--texte-tertiaire);
+}
+
+.searchBar button {
+  flex-shrink: 0;
+
+  padding: 14px 28px;
+
+  border: none;
+  border-radius: 50px;
+
+  background: linear-gradient(135deg, var(--focus), var(--badges));
+
+  color: var(--texte-principale);
+
+  font-family: var(--interface);
+  font-size: 0.9rem;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  box-shadow: 0 5px 15px rgba(166, 120, 181, 0.15);
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.searchBar button:hover {
+  transform: translateY(-2px);
+
+  box-shadow: 0 8px 20px rgba(166, 120, 181, 0.25);
+}
+
+.searchBar button:active {
+  transform: scale(0.97);
+}
+
+/* ==================================================
+   LAYOUT — FILTRES + LIVRES
+   ================================================== */
+
+.resultLivre {
+  display: grid;
+
+  grid-template-columns:
+    minmax(180px, 230px)
+    minmax(0, 1fr);
+
+  gap: clamp(20px, 3vw, 35px);
+
+  align-items: start;
+}
+
+/* ==================================================
+   BARRE LATÉRALE DE FILTRES
+   ================================================== */
+
+.book-filters {
+  position: relative;
+  isolation: isolate;
+
+  width: 100%;
+  min-width: 0;
+
+  padding: 28px 24px;
+
+  border-radius: 24px;
+
+  background: linear-gradient(
+    155deg,
+    rgba(255, 250, 244, 0.68),
+    rgba(237, 246, 255, 0.48),
+    rgba(249, 221, 229, 0.4)
+  );
+
+  border: 1px solid rgba(255, 255, 255, 0.65);
+
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+
+  box-shadow:
+    0 12px 35px rgba(51, 45, 53, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.65);
+
+  overflow: hidden;
+}
+
+/* Reflet décoratif */
+.book-filters::before {
+  content: "";
+
+  position: absolute;
+  z-index: -1;
+
+  top: -90px;
+  right: -100px;
+
+  width: 220px;
+  height: 220px;
+
+  border-radius: 50%;
+
+  background: rgba(213, 181, 232, 0.4);
+
+  filter: blur(60px);
+
+  pointer-events: none;
+}
+
+/* Titre "Filtres" */
+.book-filters > h2 {
+  position: relative;
+
+  margin-bottom: 30px;
+  padding-bottom: 18px;
+
+  font-family: var(--titres-editoriaux);
+  font-size: 1.8rem;
+  font-weight: 700;
+
+  color: var(--texte-principale);
+
+  text-align: left;
+}
+
+.book-filters > h2::after {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  bottom: 0;
+
+  width: 45px;
+  height: 3px;
+
+  border-radius: 50px;
+
+  background: linear-gradient(90deg, var(--focus), var(--badges));
+}
+
+/* Formulaire */
+#book-filter-form {
+  display: flex;
+  flex-direction: column;
+
+  gap: 24px;
+}
+
+/* --------------------------------------------------
+   GROUPES DE FILTRES
+   -------------------------------------------------- */
+
+.filter-group {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 12px;
+
+  margin: 0;
+  padding: 0 0 22px;
+
+  border: none;
+  border-bottom: 1px solid rgba(113, 102, 117, 0.12);
+
+  text-align: left;
+}
+
+.filter-group:last-of-type {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+/* Titres des filtres */
+.filter-group legend {
+  margin-bottom: 12px;
+
+  padding: 0;
+
+  font-family: var(--interface);
+  font-size: 0.92rem;
+  font-weight: 700;
+
+  color: var(--texte-principale);
+}
+
+/* Labels */
+.filter-group > label {
+  display: block;
+
+  margin-bottom: 8px;
+
+  font-family: var(--interface);
+  font-size: 0.78rem;
+
+  color: var(--texte-secondaire);
+}
+
+/* --------------------------------------------------
+   SELECT ET INPUT NUMBER
+   -------------------------------------------------- */
+
+.filter-group select,
+.filter-group input[type="number"] {
+  width: 100%;
+  min-width: 0;
+
+  padding: 12px 14px;
+
+  border-radius: 12px;
+
+  border: 1px solid rgba(166, 120, 181, 0.18);
+
+  background: rgba(255, 255, 255, 0.55);
+
+  color: var(--texte-principale);
+
+  font-family: var(--interface);
+  font-size: 0.88rem;
+
+  outline: none;
+
+  transition:
+    border-color 0.3s ease,
+    background 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.filter-group select {
+  cursor: pointer;
+}
+
+.filter-group select:hover,
+.filter-group input[type="number"]:hover {
+  background: rgba(255, 255, 255, 0.75);
+}
+
+.filter-group select:focus-visible,
+.filter-group input[type="number"]:focus-visible {
+  border-color: var(--focus);
+
+  box-shadow: 0 0 0 3px rgba(159, 197, 237, 0.25);
+}
+
+/* --------------------------------------------------
+   CASES À COCHER
+   -------------------------------------------------- */
+
+.filter-option {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 9px 12px;
+
+  border-radius: 10px;
+
+  background: rgba(255, 255, 255, 0.2);
+
+  transition: background 0.25s ease;
+}
+
+.filter-option:hover {
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.filter-option input[type="checkbox"] {
+  width: 17px;
+  height: 17px;
+
+  flex-shrink: 0;
+
+  accent-color: var(--texte-accent);
+
+  cursor: pointer;
+}
+
+.filter-option label {
+  flex: 1;
+
+  font-family: var(--interface);
+  font-size: 0.88rem;
+
+  color: var(--texte-secondaire);
+
+  cursor: pointer;
+}
+
+.filter-option:has(input:checked) {
+  background: rgba(213, 181, 232, 0.25);
+}
+
+.filter-option:has(input:checked) label {
+  color: var(--texte-principale);
+  font-weight: 600;
+}
+
+/* --------------------------------------------------
+   BOUTONS DES FILTRES
+   -------------------------------------------------- */
+
+.filter-actions {
+  display: flex;
+  flex-direction: column;
+
+  gap: 10px;
+
+  margin-top: 5px;
+}
+
+.filter-actions button {
+  width: 100%;
+
+  padding: 13px 15px;
+
+  border-radius: 12px;
+
+  font-family: var(--interface);
+  font-size: 0.88rem;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.3s ease,
+    background 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+/* Appliquer */
+.filter-actions button[type="submit"] {
+  border: none;
+
+  background: linear-gradient(135deg, var(--focus), var(--badges));
+
+  color: var(--texte-principale);
+
+  box-shadow: 0 5px 15px rgba(166, 120, 181, 0.15);
+}
+
+.filter-actions button[type="submit"]:hover {
+  transform: translateY(-2px);
+
+  box-shadow: 0 8px 20px rgba(166, 120, 181, 0.25);
+}
+
+/* Réinitialiser */
+.filter-actions button[type="reset"] {
+  border: 1px solid rgba(166, 120, 181, 0.2);
+
+  background: rgba(255, 255, 255, 0.3);
+
+  color: var(--texte-secondaire);
+}
+
+.filter-actions button[type="reset"]:hover {
+  background: rgba(255, 255, 255, 0.6);
+
+  color: var(--texte-accent);
+}
+
+/* ==================================================
+   SECTION DES RÉSULTATS
+   ================================================== */
+
+.book-results {
+  min-width: 0;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 25px;
+}
+
+/* Titre "Tous les livres" */
+.book-results > h2 {
+  position: relative;
+
+  padding-bottom: 16px;
+
+  font-family: var(--titres-editoriaux);
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+
+  color: var(--texte-principale);
+
+  text-align: left;
+}
+
+.book-results > h2::after {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  bottom: 0;
+
+  width: 60px;
+  height: 3px;
+
+  border-radius: 50px;
+
+  background: linear-gradient(90deg, var(--focus), var(--badges));
+}
+
+/* --------------------------------------------------
+   GRILLE DES LIVRES
+   -------------------------------------------------- */
+
+.resultEmpty {
+  width: 100%;
+  padding: 35px 25px;
+
+  color: #d98291;
+  background: rgba(255, 255, 255, 0.45);
+
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 18px;
+
+  font-family: var(--interface);
+  font-size: 1.1rem;
+  font-weight: 600;
+
+  text-align: center;
+}
+
+.book-grid {
+  width: 100%;
+
+  display: grid;
+
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+
+  gap: 18px;
+
+  align-items: stretch;
+}
+
+/* --------------------------------------------------
+   CARTE D'UN LIVRE
+   -------------------------------------------------- */
+
+/* ==================================================
+   LIRA — CARTES DE LIVRES
+   Design commun accueil / catalogue
+   ================================================== */
+
+/* --------------------------------------------------
+   CARTE
+   -------------------------------------------------- */
+
+.book-card {
+  position: relative;
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 12px;
+
+  border-radius: 20px;
+
+  background: rgba(255, 250, 244, 0.55);
+
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+
+  border: 1px solid rgba(255, 255, 255, 0.6);
+
+  box-shadow:
+    0 8px 25px rgba(51, 45, 53, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+
+  overflow: hidden;
+
+  transition:
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.4s ease,
+    background 0.4s ease;
+
+  animation: book-appear 0.8s ease both;
+}
+
+/* Apparition progressive */
+.book-card:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.book-card:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.book-card:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.book-card:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+/* Survol */
+.book-card:hover {
+  transform: translateY(-8px);
+
+  background: rgba(255, 250, 244, 0.75);
+
+  box-shadow:
+    0 20px 40px rgba(51, 45, 53, 0.15),
+    0 5px 15px rgba(166, 120, 181, 0.12);
+}
+
+/* --------------------------------------------------
+   COUVERTURE
+   -------------------------------------------------- */
+
+.book-cover {
+  position: relative;
+
+  width: 100%;
+  aspect-ratio: 3 / 4;
+
+  border-radius: 14px;
+  overflow: hidden;
+
+  background: var(--bcg-coton);
+}
+
+.book-cover img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  transition:
+    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.4s ease;
+}
+
+.book-card:hover .book-cover img {
+  transform: scale(1.08);
+  filter: saturate(1.12);
+}
+
+/* --------------------------------------------------
+   BADGE
+   -------------------------------------------------- */
+
+.book-badge {
+  position: absolute;
+
+  top: 12px;
+  left: 12px;
+
+  padding: 6px 12px;
+
+  border-radius: 50px;
+
+  background: rgba(255, 255, 255, 0.82);
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  color: var(--texte-principale);
+
+  font-family: var(--interface);
+  font-size: 0.72rem;
+  font-weight: 600;
+
+  box-shadow: 0 3px 10px rgba(51, 45, 53, 0.08);
+}
+
+/* --------------------------------------------------
+   INFORMATIONS DU LIVRE
+   -------------------------------------------------- */
+
+.book-info {
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 10px;
+
+  padding: 15px 5px 5px;
+
+  text-align: left;
+}
+
+/* Titre */
+.book-info h3 {
+  font-family: var(--titres-editoriaux);
+
+  font-size: 1.12rem;
+  font-weight: 700;
+
+  line-height: 1.35;
+
+  color: var(--texte-principale);
+
+  /* Limite les titres à deux lignes */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+
+  overflow: hidden;
+}
+
+/* Auteur */
+.book-author {
+  font-family: var(--interface);
+
+  font-size: 0.82rem;
+
+  color: var(--texte-secondaire);
+
+  line-height: 1.5;
+}
+
+/* --------------------------------------------------
+   LANGUE ET NOMBRE DE PAGES
+   -------------------------------------------------- */
+
+.book-meta {
+  display: flex;
+  flex-wrap: wrap;
+
+  align-items: center;
+
+  gap: 7px;
+
+  margin: 4px 0 6px;
+}
+
+.book-language,
+.book-pages {
+  display: inline-flex;
+  align-items: center;
+
+  padding: 5px 9px;
+
+  border-radius: 8px;
+
+  background: rgba(255, 255, 255, 0.45);
+
+  border: 1px solid rgba(255, 255, 255, 0.55);
+
+  font-family: var(--interface);
+  font-size: 0.7rem;
+
+  color: var(--texte-secondaire);
+}
+
+/* --------------------------------------------------
+   NOTE ET PRIX
+   -------------------------------------------------- */
+
+.book-details {
+  display: flex;
+
+  justify-content: space-between;
+  align-items: center;
+
+  gap: 10px;
+
+  margin-top: auto;
+  padding-top: 8px;
+}
+
+.book-rating {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 4px;
+
+  font-family: var(--interface);
+  font-size: 0.9rem;
+  font-weight: 700;
+
+  color: var(--avertissement);
+}
+
+.book-price {
+  font-family: var(--interface);
+
+  font-size: 1rem;
+  font-weight: 700;
+
+  color: var(--texte-accent);
+}
+
+/* --------------------------------------------------
+   BOUTON DÉCOUVRIR
+   -------------------------------------------------- */
+
+.book-button {
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  gap: 8px;
+
+  width: 100%;
+
+  margin-top: 8px;
+  padding: 12px 15px;
+
+  border-radius: 12px;
+
+  background: linear-gradient(135deg, var(--focus), var(--badges));
+
+  color: var(--texte-principale);
+
+  font-family: var(--interface);
+  font-size: 0.88rem;
+  font-weight: 600;
+
+  text-decoration: none;
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.book-button:hover {
+  transform: translateY(-3px);
+
+  box-shadow: 0 6px 18px rgba(166, 120, 181, 0.25);
+}
+
+.book-button:active {
+  transform: scale(0.97);
+}
+
+.book-button:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 4px;
+}
+
+/* --------------------------------------------------
+   ANIMATIONS
+   -------------------------------------------------- */
+
+@keyframes book-appear {
+  from {
+    opacity: 0;
+    transform: translateY(25px) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* --------------------------------------------------
+   RESPONSIVE
+   -------------------------------------------------- */
+
+@media (max-width: 600px) {
+  .book-grid {
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 180px), 1fr));
+
+    gap: 15px;
+  }
+
+  .book-card {
+    padding: 10px;
+    border-radius: 16px;
+  }
+
+  .book-info {
+    padding: 12px 4px 4px;
+  }
+
+  .book-info h3 {
+    font-size: 1rem;
+  }
+
+  .book-meta {
+    gap: 5px;
+  }
+
+  .book-language,
+  .book-pages {
+    font-size: 0.65rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .book-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --------------------------------------------------
+   ACCESSIBILITÉ
+   -------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .book-card,
+  .book-cover img,
+  .book-button {
+    animation: none;
+    transition: none;
+  }
+}
+
+/* --------------------------------------------------
+   FOCUS CLAVIER
+   -------------------------------------------------- */
+
+.searchBar button:focus-visible,
+.filter-actions button:focus-visible,
+.book-card a:focus-visible,
+.deabcrumb a:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 4px;
+}
+
+/* ==================================================
+   ANIMATIONS
+   ================================================== */
+
+@keyframes catalogue-gradient {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes catalogue-card-appear {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==================================================
+   RESPONSIVE — TABLETTE
+   ================================================== */
+
+@media (max-width: 1000px) {
+  .resultLivre {
+    grid-template-columns:
+      minmax(210px, 240px)
+      minmax(0, 1fr);
+
+    gap: 20px;
+  }
+
+  .book-filters {
+    padding: 24px 18px;
+  }
+
+  .book-grid {
+    gap: 18px;
+  }
+}
+
+/* ==================================================
+   RESPONSIVE — MOBILE
+   ================================================== */
+
+@media (max-width: 760px) {
+  body > header {
+    margin-top: 100px;
+    padding: 35px 10px 20px;
+  }
+
+  .resultLivre {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 30px;
+  }
+
+  .book-filters {
+    padding: 25px;
+  }
+
+  .book-grid {
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 180px), 1fr));
+
+    gap: 18px;
+  }
+}
+
+@media (max-width: 600px) {
+  body > header h1 {
+    font-size: clamp(2.4rem, 10vw, 3.5rem);
+  }
+
+  .searchBar {
+    gap: 6px;
+    padding: 6px;
+  }
+
+  .searchBar input[type="search"] {
+    padding: 12px;
+    font-size: 0.85rem;
+  }
+
+  .searchBar button {
+    padding: 12px 15px;
+    font-size: 0.85rem;
+  }
+
+  .book-card {
+    padding: 18px;
+  }
+}
+
+@media (max-width: 380px) {
+  .searchBar {
+    flex-direction: column;
+    border-radius: 20px;
+  }
+
+  .searchBar input[type="search"],
+  .searchBar button {
+    width: 100%;
+  }
+
+  .book-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==================================================
+   ACCESSIBILITÉ
+   ================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  body > header h1,
+  .book-card {
+    animation: none;
+  }
+
+  .searchBar,
+  .searchBar button,
+  .filter-option,
+  .filter-actions button,
+  .book-card,
+  .book-card a {
+    transition: none;
+  }
+}
+
+/* ==========================================
+   LIRA — FOOTER PASTEL GLASSMORPHISM
+   ========================================== */
+
+footer {
+  position: relative;
+  isolation: isolate;
+  bottom: 0;
+
+  width: 100%;
+  margin-top: 80px;
+
+  padding: 60px clamp(20px, 5vw, 70px) 25px;
+
+  color: var(--texte-principale);
+
+  background: linear-gradient(
+    135deg,
+    rgba(255, 250, 244, 0.65) 0%,
+    rgba(237, 246, 255, 0.5) 45%,
+    rgba(249, 221, 229, 0.55) 100%
+  );
+
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 28px 28px 0 0;
+
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+  box-shadow:
+    0 -10px 40px rgba(51, 45, 53, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+
+  overflow: hidden;
+}
+
+/* ==========================================
+   LUEURS DÉCORATIVES
+   ========================================== */
+
+footer::before,
+footer::after {
+  content: "";
+
+  position: absolute;
+
+  width: 300px;
+  aspect-ratio: 1;
+
+  border-radius: 50%;
+
+  filter: blur(70px);
+  opacity: 0.35;
+
+  pointer-events: none;
+  z-index: -1;
+}
+
+footer::before {
+  top: -130px;
+  left: -100px;
+
+  background: #9fc5ed;
+}
+
+footer::after {
+  bottom: -160px;
+  right: -100px;
+
+  background: #ffbfa9;
+}
+
+/* ==========================================
+   CONTENU PRINCIPAL
+   ========================================== */
+
+.footer-content {
+  width: 100%;
+  max-width: 1200px;
+
+  margin-inline: auto;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(200px, 1.4fr)
+    repeat(3, minmax(140px, 1fr));
+
+  gap: clamp(25px, 4vw, 60px);
+
+  align-items: start;
+}
+
+/* ==========================================
+   IDENTITÉ LIRA
+   ========================================== */
+
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  gap: 15px;
+
+  text-align: left;
+}
+
+.footer-brand h2 {
+  width: fit-content;
+
+  font-family: var(--titres-editoriaux);
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+
+  font-weight: 900;
+  font-style: italic;
+
+  letter-spacing: -0.06em;
+
+  background: linear-gradient(120deg, #729bd0, #a678b5, #d5b5e8, #ffbfa9);
+
+  background-size: 200% 200%;
+
+  background-clip: text;
+  -webkit-background-clip: text;
+
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+
+  animation: footer-gradient 8s ease-in-out infinite;
+}
+
+.footer-brand p {
+  max-width: 230px;
+
+  font-family: var(--titres-editoriaux);
+  font-size: 0.95rem;
+  font-style: italic;
+
+  line-height: 1.7;
+
+  color: var(--texte-secondaire);
+}
+
+/* ==========================================
+   COLONNES DU FOOTER
+   ========================================== */
+
+.footer-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  gap: 20px;
+
+  text-align: left;
+}
+
+.footer-section h3 {
+  position: relative;
+
+  width: fit-content;
+
+  font-family: var(--interface);
+  font-size: 0.95rem;
+  font-weight: 700;
+
+  letter-spacing: 0.03em;
+
+  color: var(--texte-principale);
+
+  padding-bottom: 12px;
+}
+
+/* Petite ligne pastel sous chaque titre */
+.footer-section h3::after {
+  content: "";
+
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+  width: 35px;
+  height: 3px;
+
+  border-radius: 50px;
+
+  background: linear-gradient(90deg, var(--focus), var(--badges));
+
+  transition: width 0.3s ease;
+}
+
+.footer-section:hover h3::after {
+  width: 100%;
+}
+
+/* ==========================================
+   LISTES ET LIENS
+   ========================================== */
+
+.footer-section ul {
+  display: flex;
+  flex-direction: column;
+
+  align-items: flex-start;
+
+  gap: 13px;
+
+  padding: 0;
+  margin: 0;
+
+  list-style: none;
+}
+
+.footer-section ul li {
+  list-style: none;
+}
+
+.footer-section ul li a {
+  position: relative;
+
+  display: inline-block;
+
+  color: var(--texte-secondaire);
+
+  font-family: var(--interface);
+  font-size: 0.88rem;
+
+  line-height: 1.5;
+
+  text-decoration: none;
+
+  transition:
+    color 0.3s ease,
+    transform 0.3s ease;
+}
+
+/* Animation au survol */
+.footer-section ul li a:hover {
+  color: var(--texte-accent);
+
+  transform: translateX(5px);
+}
+
+/* Petit point lumineux */
+.footer-section ul li a::before {
+  content: "";
+
+  position: absolute;
+
+  left: -13px;
+  top: 50%;
+
+  width: 5px;
+  height: 5px;
+
+  border-radius: 50%;
+
+  background: var(--texte-accent);
+
+  opacity: 0;
+
+  transform: translateY(-50%) scale(0);
+
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+.footer-section ul li a:hover::before {
+  opacity: 1;
+
+  transform: translateY(-50%) scale(1);
+}
+
+/* Navigation clavier */
+.footer-section ul li a:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 5px;
+  border-radius: 3px;
+}
+
+/* ==========================================
+   BAS DU FOOTER
+   ========================================== */
+
+.footer-bottom {
+  width: 100%;
+  max-width: 1200px;
+
+  margin: 55px auto 0;
+  padding-top: 25px;
+
+  border-top: 1px solid rgba(113, 102, 117, 0.15);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+}
+
+.footer-bottom p {
+  font-family: var(--interface);
+  font-size: 0.8rem;
+
+  color: var(--texte-tertiaire);
+
+  letter-spacing: 0.02em;
+}
+
+/* ==========================================
+   ANIMATION DU LOGO
+   ========================================== */
+
+@keyframes footer-gradient {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE — TABLETTE
+   ========================================== */
+
+@media (max-width: 900px) {
+  footer {
+    padding: 50px 30px 25px;
+  }
+
+  .footer-content {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 40px;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE — MOBILE
+   ========================================== */
+
+@media (max-width: 600px) {
+  footer {
+    margin-top: 60px;
+
+    padding: 40px 25px 20px;
+
+    border-radius: 22px 22px 0 0;
+  }
+
+  .footer-content {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    column-gap: 20px;
+    row-gap: 35px;
+  }
+
+  .footer-brand {
+    grid-column: 1 / -1;
+
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-brand p {
+    max-width: 280px;
+  }
+
+  .footer-section {
+    gap: 15px;
+  }
+
+  .footer-section h3 {
+    font-size: 0.9rem;
+  }
+
+  .footer-section ul {
+    gap: 12px;
+  }
+
+  .footer-section ul li a {
+    font-size: 0.82rem;
+  }
+
+  .footer-bottom {
+    margin-top: 40px;
+    padding-top: 20px;
+  }
+}
+
+/* ==========================================
+   TRÈS PETITS ÉCRANS
+   ========================================== */
+
+@media (max-width: 380px) {
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .footer-brand {
+    grid-column: auto;
+  }
+
+  .footer-section {
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-section ul {
+    align-items: center;
+  }
+
+  .footer-section h3::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+/* ==========================================
+   ACCESSIBILITÉ
+   ========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .footer-brand h2 {
+    animation: none;
+  }
+
+  .footer-section h3::after,
+  .footer-section ul li a,
+  .footer-section ul li a::before {
+    transition: none;
+  }
+}

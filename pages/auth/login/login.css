@@ -1,0 +1,493 @@
+@import url(../../../main.css);
+
+body {
+  width: 100%;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: safe center;
+  gap: 0;
+  /* padding: 20px 15px; */
+  background: var(--bcg-principale);
+  background-attachment: fixed;
+  isolation: isolate;
+  overflow-x: clip;
+}
+/* Style commun des bulles */
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+
+  width: clamp(150px, 25vw, 350px);
+  aspect-ratio: 1;
+
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: -1;
+
+  border: 1px solid rgba(255, 255, 255, 0.5);
+
+  box-shadow:
+    inset 12px 12px 30px rgba(255, 255, 255, 0.45),
+    inset -15px -15px 35px rgba(166, 120, 181, 0.15),
+    0 15px 45px rgba(113, 102, 117, 0.12);
+
+  backdrop-filter: blur(5px);
+
+  animation: bubble-float 8s ease-in-out infinite;
+}
+
+/* Bulle gauche */
+body::before {
+  top: 12%;
+  left: -8%;
+
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(255, 255, 255, 0.85),
+    rgba(159, 197, 237, 0.65) 45%,
+    rgba(213, 181, 232, 0.35) 75%,
+    transparent 100%
+  );
+}
+
+/* Bulle droite */
+body::after {
+  bottom: 8%;
+  right: -7%;
+
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(255, 255, 255, 0.9),
+    rgba(255, 191, 169, 0.65) 45%,
+    rgba(223, 195, 240, 0.4) 75%,
+    transparent 100%
+  );
+
+  animation-delay: -4s;
+}
+
+/* Animation de flottement */
+@keyframes bubble-float {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate(15px, -25px) scale(1.08);
+  }
+}
+
+@media (max-width: 600px) {
+  body::before,
+  body::after {
+    width: clamp(100px, 35vw, 180px);
+    opacity: 0.35;
+    filter: blur(12px);
+  }
+
+  body::before {
+    top: 5%;
+    left: -15%;
+  }
+
+  body::after {
+    bottom: 5%;
+    right: -15%;
+  }
+}
+
+/* Respect des préférences d'accessibilité */
+@media (prefers-reduced-motion: reduce) {
+  body::before,
+  body::after {
+    animation: none;
+  }
+}
+
+form {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-block: auto;
+  perspective: 1200px;
+  perspective-origin: center center;
+}
+
+/* ANIMATION DU TITRE */
+/* ==============================
+   TITRE LIRA — PASTEL ANIMÉ
+   ============================== */
+form h1 {
+  position: relative;
+  width: fit-content;
+  margin: 0 auto 35px;
+
+  font-family: var(--titres-editoriaux);
+  font-size: clamp(3.5rem, 9vw, 6rem);
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: -0.06em;
+  line-height: 1.2;
+
+  /* Dégradé pastel */
+  background: linear-gradient(
+    120deg,
+    #729bd0 0%,
+    #a678b5 30%,
+    #d5b5e8 50%,
+    #ffbfa9 70%,
+    #729bd0 100%
+  );
+
+  background-size: 300% 300%;
+  background-clip: text;
+  -webkit-background-clip: text;
+
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+
+  user-select: none;
+
+  /* Animations */
+  animation:
+    lira-gradient 8s ease-in-out infinite,
+    lira-float 5s ease-in-out infinite;
+
+  filter: drop-shadow(0 5px 12px rgba(166, 120, 181, 0.15));
+}
+/* Halo lumineux derrière le titre */
+form h1::before {
+  content: "";
+  position: absolute;
+
+  width: 110%;
+  height: 65%;
+
+  left: 50%;
+  top: 50%;
+
+  transform: translate(-50%, -50%);
+
+  background: radial-gradient(
+    ellipse,
+    rgba(213, 181, 232, 0.35) 0%,
+    rgba(159, 197, 237, 0.15) 45%,
+    transparent 75%
+  );
+
+  filter: blur(20px);
+  z-index: -1;
+
+  animation: lira-glow 5s ease-in-out infinite;
+}
+/* Petite étoile décorative */
+form h1::after {
+  content: "✦";
+  position: absolute;
+
+  top: 0;
+  right: -25px;
+
+  font-family: var(--interface);
+  font-size: clamp(1rem, 3vw, 1.5rem);
+
+  background: none;
+  color: #d5b5e8;
+  -webkit-text-fill-color: #d5b5e8;
+
+  animation: lira-sparkle 3s ease-in-out infinite;
+}
+/* ==============================
+   ANIMATIONS
+   ============================== */
+/* Déplacement du dégradé */
+@keyframes lira-gradient {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+}
+/* Flottement */
+@keyframes lira-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-7px);
+  }
+}
+/* Respiration lumineuse */
+@keyframes lira-glow {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.15);
+  }
+}
+/* Scintillement */
+@keyframes lira-sparkle {
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: scale(0.8) rotate(0deg);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.2) rotate(25deg);
+  }
+}
+/* Accessibilité */
+@media (prefers-reduced-motion: reduce) {
+  form h1,
+  form h1::before,
+  form h1::after {
+    animation: none;
+  }
+}
+
+/* ==============================
+   CARTE 3D — LIRA
+   ============================== */
+
+.card {
+  position: relative;
+  width: 100%;
+  display: grid;
+
+  transform-style: preserve-3d;
+
+  transform: rotateY(0deg);
+
+  transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Retournement */
+.card.is-flipped {
+  transform: rotateY(180deg);
+}
+
+/* Faces de la carte */
+.card-front,
+.card-back {
+  grid-area: 1 / 1;
+
+  position: relative;
+
+  width: 100%;
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform-style: flat;
+}
+
+/* Face avant */
+.card-front {
+  transform: rotateY(0deg);
+}
+
+/* Face arrière */
+.card-back {
+  transform: rotateY(180deg);
+}
+
+/* Apparence des formulaires */
+.card fieldset {
+  position: relative;
+
+  width: 100%;
+  min-width: 0;
+
+  padding: 25px 30px;
+
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+
+  background: rgba(255, 255, 255, 0.28);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+
+  box-shadow:
+    0 15px 40px rgba(51, 45, 53, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+/* Inscription */
+.card-back .save {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.insCheck {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+
+  text-align: left;
+  font-size: 0.85rem;
+  color: var(--texte-secondaire);
+}
+
+.insCheck input {
+  flex-shrink: 0;
+}
+
+/* Boutons */
+.card .button {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+
+.card button {
+  flex: 1;
+  min-width: 0;
+  max-width: none;
+}
+
+/* Animation */
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: none;
+  }
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .card fieldset {
+    padding: 20px;
+    gap: 15px;
+  }
+}
+
+.retour {
+  width: fit-content;
+  background-color: transparent;
+  color: var(--texte-secondaire);
+  text-decoration: underline;
+}
+
+fieldset {
+  padding: 20px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  color: var(--texte-principale);
+  position: relative;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+legend {
+  color: var(--texte-secondaire);
+  padding-inline: 15px;
+  text-align: left;
+  pointer-events: none;
+  user-select: none;
+}
+
+.champs {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+input {
+  padding: 10px 10px;
+  border: none;
+  outline: none;
+  border-radius: 12px;
+  box-shadow: 3px 3px 5px #77777777;
+}
+
+input:focus {
+  border-bottom: 2px solid #ffffff;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+button {
+  width: 150px;
+  padding: 8px 20px;
+  border: none;
+  outline: none;
+  color: var(--surface);
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.connecter {
+  background-color: var(--info);
+}
+.connecter:hover {
+  box-shadow: 0 0 0 5px #78aee851;
+}
+.inscrire {
+  background-color: var(--erreur);
+}
+.inscrire:hover {
+  box-shadow: 0 0 0 5px #d9829151;
+}
+
+.separate {
+  position: relative;
+  width: 100%;
+  text-align: center;
+  color: var(--texte-tertiaire);
+}
+
+.separate::before,
+.separate::after {
+  content: "";
+  width: clamp(20px, 35%, 150px);
+  height: 2px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 2px;
+  background-color: var(--texte-tertiaire);
+}
+.separate:before {
+  left: 0;
+}
+.separate:after {
+  right: 0;
+}
+
+a {
+  color: var(--texte-accent);
+}
+a:visited {
+  color: var(--texte-secondaire);
+}
