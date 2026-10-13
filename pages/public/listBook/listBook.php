@@ -8,41 +8,75 @@
   $longueur = $_GET["longueur"]??"";
   $prix = $_GET["prix"]??"";
 
-  $sql = "SELECT * FROM catalogue_books";
+  $filter = [
+      "genre"=>$genre,
+      "langue"=>$langue,
+      "format"=>$format,
+      "longueur"=>$longueur,
+      "prix"=>$prix
+  ];
 
-  function filterActif($filtre){
-    if($filtre!==""){
-      $sql .= " AND $filtre LIKE :$filtre";
+  $filtreActif = array_filter($filter);
+
+  $sql = "SELECT * FROM catalogue_books";
+  $condition = [];
+  $table = [];
+
+  if($search !== ""){
+    $condition[] = "(title LIKE :title OR slug LIKE :slug)";
+    
+    $table["title"] = "%$search%";
+    $table["slug"] = "%$search%";
+  };
+
+  foreach ($filtreActif as $key => $value) {
+    switch ($key) {
+      case 'genre':
+        $condition[] = "genre LIKE :genre";
+        $table["genre"] = "%$value%";
+        break;
+
+      case 'langue':
+        $condition[] = "language_code LIKE :langue";
+        $table["langue"] = "%$value%";
+        break;
+
+      case 'format':
+        $condition[] = "format LIKE :format";
+        $table["format"] = "%$value%";
+        break;
+
+      case 'longuer';
+        $condition[] = "longueur LIKE :longueur";
+        $table["longueur"] = "%$longueur%";
+        break;
+
+      case 'prix':
+        if($value==='gratuit'){
+          $condition[] = "price = 0";
+        } else {
+          $condition[] = "price > 0";
+        }
+        break;
+      
+      default:
+        break;
     }
   }
 
-  if($search !== ""){
-    $sql .= " WHERE (title LIKE :title OR slug LIKE :slug) AND (genre LIKE :genre)";
-
-    filterActif($genre);
-    // filterActif($langue);
-    // filtreActif($format);
-    // filterActif($longueur);
-    // filtreActif($prix);
-
-    $STATEMENT = $pdo -> prepare($sql);
-    $STATEMENT->execute([
-      "title"=>"%{$search}%",
-      "slug"=>"%{$search}%",
-      "genre"=>"%{$genre}%"
-      // "langue"=>"%{$langue}%",
-      // "format"=>"%{$format}%",
-      // "longueur"=>"%{$longueur}%",
-      // "prix"=>"%{$prix}%"
-    ]);
-  } else {
-    $STATEMENT = $pdo -> prepare($sql);
-    $STATEMENT -> execute();
+  if(!empty($condition)) {
+    $sql .= " WHERE ".implode(" AND ",$condition);
   }
-
-
-
+  
+  $STATEMENT = $pdo -> prepare($sql);
+  $STATEMENT -> execute($table);
   $resultat = $STATEMENT->fetchAll();
+
+
+  // TOUTES LES GENRES
+  $ALLGENRES = $pdo -> prepare("SELECT * FROM catalogue_categories");
+  $ALLGENRES -> execute();
+  $AllGenre = $ALLGENRES->fetchAll();
 ?>
 
 <!doctype html>
@@ -59,11 +93,11 @@
     <nav>
       <p>Lira</p>
       <ul class="right">
-        <li><a href="../home/home.html">Acceuil</a></li>
+        <li><a href="../home/home.php">Acceuil</a></li>
         <li class="navSelected"><a href="#">Livres</a></li>
         <li><a href="#">Categories</a></li>
         <li><a href="#">Devenir auteur</a></li>
-        <li><a href="../../auth/login/login.html">Connexion</a></li>
+        <li><a href="../../auth/login/login.php">Connexion</a></li>
       </ul>
     </nav>
 
@@ -81,7 +115,7 @@
     <!-- SECTION DES LIVRES -->
     <section>
       <!-- search -->
-      <form class="searchBar" id="searchBarForm" method="GET">
+      <form class="searchBar" id="searchBarForm" method="GET" action="listBook.php">
         <input
           type="search"
           name="search"
@@ -97,7 +131,7 @@
         <aside class="book-filters" aria-labelledby="filters-title">
           <h2 id="filters-title">Filtres</h2>
 
-          <form id="book-filter-form" method="GET">
+          <form id="book-filter-form" method="GET" action="listBook.php">
             <!-- GENRE -->
             <fieldset class="filter-group">
               <legend>Genre</legend>
@@ -105,9 +139,10 @@
               <label for="genre">Choisir un genre</label>
 
               <select name="genre" id="genre">
-                <option value="">Tous les genres</option>
-                <option value="roman">Roman</option>
-                <option value="fiction">Fiction</option>
+                <option value="" >Tous les genres</option>
+                <?php foreach($AllGenre as $element):?>
+                  <option value="<?= $element["slug"]?>"><?=$element["name"]?></option>
+                <?php endforeach?>
               </select>
             </fieldset>
 
@@ -202,7 +237,7 @@
         <!-- CATALOGUE DES LIVRES -->
         <section class="book-results" aria-labelledby="results-title">
 
-          <h2 id="results-title">Tous les livres</h2>
+          <h2 id="results-title"><?= count($resultat)?> livres disponible</h2>
 
           <?php if (empty($resultat)): ?>
 
@@ -238,6 +273,7 @@
                   </div>
 
                   <div class="book-info">
+
 
                     <h3>
                       <?= htmlspecialchars($book['title'], ENT_QUOTES, 'UTF-8') ?>

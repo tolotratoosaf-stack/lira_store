@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lira</title>
     <link rel="stylesheet" href="home.css" />
+    <script src="app.js" async></script>
   </head>
   <body>
     <!-- NAVIGATION -->
@@ -24,7 +25,7 @@
       <h1>LIRA</h1>
       <p>Là où les histoires prennent vie</p>
 
-      <form>
+      <form action="home.php" method="GET" id="searchBar">
         <input
           type="search"
           name="search"
