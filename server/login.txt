@@ -8,3 +8,5 @@ ines.martin@example.com => HASH_A_REMPLACER_07
 hugo.fontaine@example.com => HASH_A_REMPLACER_08
 lea.rousseau@example.com => HASH_A_REMPLACER_09
 nathan.girard@example.com => HASH_A_REMPLACER_10
+
+lecteur01 - lecteur@gmail.com - lecteur#gmail.com - lecteur#gmail.com

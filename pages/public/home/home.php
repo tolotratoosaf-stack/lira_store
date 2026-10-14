@@ -1,5 +1,7 @@
 <?php
   require_once __DIR__ . "/../../../server/session/session.php";
+
+  // $_SESSION["user_id"]='';
 ?>
 
 <!doctype html>
@@ -20,7 +22,7 @@
         <li><a href="../listBook/listBook.php">Livres</a></li>
         <li><a href="#">Categories</a></li>
         <li><a href="#">Devenir auteur</a></li>
-        <li><a href="../../auth/login/login.php">Connexion</a></li>
+        <li><a href="../../auth/logout/logout.php">Connexion</a></li>
       </ul>
     </nav>
 

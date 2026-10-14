@@ -1,29 +1,58 @@
 <?php
-  require_once __DIR__ . '/../../../server/config/config.php';
+  require_once __DIR__ . "/../../../server/config/config.php";
 
-  if(session_status()===PHP_SESSION_NONE) {
-    session_start();
-  }
+  $count_user = "SELECT COUNT(name) as all_user FROM user_user";
+  $stmt = $pdo -> query($count_user);
+  $all_user = $stmt->fetchColumn();
+  $code_user = ((int) $all_user) + 1;
 
-  $email = $_POST["loginEmail"]??"";
-  $password = $_POST["loginPassword"]??"";
+  $email = $_POST["email"]??"";
+  $password = $_POST["password"]??"";
+  $name = $_POST["nom"]??"";
+  $pseudo = $_POST["pseudo"]??"";
+  $bio = $_POST["bio"]??"";
 
-  $sql = "SELECT * FROM user_user WHERE email = :email AND password = :password";
+  $sql = "INSERT INTO user_user (
+              email,
+              password,
+              code_user,
+              name,
+              pseudo,
+              avatar_url,
+              bio
+          )
+          VALUES(
+              :email,
+              :password,
+              :code_user,
+              :name,
+              :pseudo,
+              NULL,
+              :bio
+          );";
 
-  if($_SERVER["REQUEST_METHOD"]==="POST") {
-    $stmt = $pdo -> prepare($sql);
-    $stmt->execute([
-      "email"=>$email,
-      "password"=>$password
-    ]);
-    $resultat = $stmt->fetch();
+  if($_SERVER["REQUEST_METHOD"]==="POST"){
+    $action = $_POST["action"]??"";
+    
+    if($action==="login") {
+      require_once __DIR__ . "/../../../server/security/security.php";
 
-    echo "UTILISATEUR CONNECTER";
+    } elseif ($action==="registre") {
+      $STATEMENT = $pdo -> prepare($sql);
+      $STATEMENT->execute([
+        "email"=>$email,
+        "password"=>$password,
+        "code_user"=>"LIRA-U$code_user",
+        "name"=>$name,
+        "pseudo"=>$pseudo,
+        "bio"=>$bio
+      ]);
 
-    $_SESSION["user_id"] = $resultat["id"];
+      session_regenerate_id(true);
 
-    if(!empty($_SESSION["user_id"])) {
-      echo "SESSION ENREGISTRER";
+      $_SESSION["user_id"]=$userId;
+      $_SESSION["role"]="lecteur";
+
       header("Location:/project/lira_store/pages/public/home/home.php");
       exit;
     }
@@ -71,7 +100,7 @@
 
             <!-- Connexion -->
             <div class="button">
-              <button type="submit" class="connecter" id="connecting">Se connecter</button>
+              <button type="submit" class="connecter" name="action" value="login" id="connecting">Se connecter</button>
               <button type="button" class="inscrire" id="showRegister">
                 S'inscrire
               </button>
@@ -134,7 +163,7 @@
 
             <!-- Connexion -->
             <div class="button">
-              <button type="submit" class="connecter">Creer mon compte</button>
+              <button type="submit" class="connecter"  name="action" value="registre">Creer mon compte</button>
             </div>
 
             <p class="separate">ou</p>

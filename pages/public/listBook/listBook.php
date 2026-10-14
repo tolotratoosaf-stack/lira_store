@@ -98,7 +98,7 @@
         <li class="navSelected"><a href="#">Livres</a></li>
         <li><a href="#">Categories</a></li>
         <li><a href="#">Devenir auteur</a></li>
-        <li><a href="../../auth/login/login.php">Connexion</a></li>
+        <li><a href="../../auth/logout/logout.php">Connexion</a></li>
       </ul>
     </nav>
 
