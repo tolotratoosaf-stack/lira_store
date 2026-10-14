@@ -1,3 +1,35 @@
+<?php
+  require_once __DIR__ . '/../../../server/config/config.php';
+
+  if(session_status()===PHP_SESSION_NONE) {
+    session_start();
+  }
+
+  $email = $_POST["loginEmail"]??"";
+  $password = $_POST["loginPassword"]??"";
+
+  $sql = "SELECT * FROM user_user WHERE email = :email AND password = :password";
+
+  if($_SERVER["REQUEST_METHOD"]==="POST") {
+    $stmt = $pdo -> prepare($sql);
+    $stmt->execute([
+      "email"=>$email,
+      "password"=>$password
+    ]);
+    $resultat = $stmt->fetch();
+
+    echo "UTILISATEUR CONNECTER";
+
+    $_SESSION["user_id"] = $resultat["id"];
+
+    if(!empty($_SESSION["user_id"])) {
+      echo "SESSION ENREGISTRER";
+      header("Location:/project/lira_store/pages/public/home/home.php");
+      exit;
+    }
+  }
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -8,7 +40,7 @@
     <script src="login.js" async></script>
   </head>
   <body>
-    <form>
+    <form action="login.php" method="POST">
       <h1>lira</h1>
       <div class="card" id="authCard">
         <div class="card-front">
@@ -39,7 +71,7 @@
 
             <!-- Connexion -->
             <div class="button">
-              <button type="submit" class="connecter">Se connecter</button>
+              <button type="submit" class="connecter" id="connecting">Se connecter</button>
               <button type="button" class="inscrire" id="showRegister">
                 S'inscrire
               </button>

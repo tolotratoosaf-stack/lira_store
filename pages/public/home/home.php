@@ -1,3 +1,7 @@
+<?php
+  require_once __DIR__ . "/../../../server/session/session.php";
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -16,7 +20,7 @@
         <li><a href="../listBook/listBook.php">Livres</a></li>
         <li><a href="#">Categories</a></li>
         <li><a href="#">Devenir auteur</a></li>
-        <li><a href="../../auth/login/login.html">Connexion</a></li>
+        <li><a href="../../auth/login/login.php">Connexion</a></li>
       </ul>
     </nav>
 

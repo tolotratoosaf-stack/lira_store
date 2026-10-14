@@ -2,6 +2,7 @@ let searchBar = document.querySelector("#searchBar");
 let inputSearch = document.querySelector("input[type='search']");
 
 
+
 searchBar.addEventListener("submit",(e)=>{
     e.preventDefault();
     if(!inputSearch.value.trim()) {

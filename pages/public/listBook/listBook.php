@@ -1,10 +1,11 @@
 <?php
+  require_once __DIR__ . "/../../../server/session/session.php";
   require_once __DIR__ . "/../../../server/config/config.php";
 
   $search = trim($_GET["search"]??'');
   $genre = $_GET["genre"]??"";
   $langue = $_GET["langue"]??"";
-  $format = $_GET["pdf"]??"";
+  $format = $_GET["format"]??"";
   $longueur = $_GET["longueur"]??"";
   $prix = $_GET["prix"]??"";
 
@@ -47,7 +48,7 @@
         break;
 
       case 'longuer';
-        $condition[] = "longueur LIKE :longueur";
+        $condition[] = "page_count LIKE :longueur";
         $table["longueur"] = "%$longueur%";
         break;
 
@@ -86,7 +87,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lira</title>
     <link rel="stylesheet" href="listBook.css" />
-    <script src="app.js" async></script>
+    <script src="app.js" defer></script>
   </head>
   <body>
     <!-- NAVIGATION -->
@@ -122,6 +123,12 @@
           id="search"
           placeholder="Découvrir les livres de votre choix"
         />
+
+
+        <!-- POUR TOUJOURS RECUPERER LE RECHERCHE -->
+        <?php foreach($filtreActif as $key => $value):?>
+          <input type="hidden" name="<?= $key?>" value="<?= htmlspecialchars($value,ENT_QUOTES,"UTF-8")?>">
+        <?php endforeach?>
         <button type="submit">Search</button>
       </form>
 
@@ -132,13 +139,15 @@
           <h2 id="filters-title">Filtres</h2>
 
           <form id="book-filter-form" method="GET" action="listBook.php">
+            <!-- POUR TOUJOURS RECUPERER LE RECHERCHE -->
+             <input type="hidden" name="search" value="<?= htmlspecialchars($search , ENT_QUOTES, "UTF-8")?>">
             <!-- GENRE -->
             <fieldset class="filter-group">
               <legend>Genre</legend>
 
               <label for="genre">Choisir un genre</label>
 
-              <select name="genre" id="genre">
+              <select name="genre" id="genre" >
                 <option value="" >Tous les genres</option>
                 <?php foreach($AllGenre as $element):?>
                   <option value="<?= $element["slug"]?>"><?=$element["name"]?></option>
@@ -237,7 +246,7 @@
         <!-- CATALOGUE DES LIVRES -->
         <section class="book-results" aria-labelledby="results-title">
 
-          <h2 id="results-title"><?= count($resultat)?> livres disponible</h2>
+          <h2 id="results-title"><?= count($resultat)?> livres disponibles</h2>
 
           <?php if (empty($resultat)): ?>
 
@@ -285,11 +294,14 @@
 
                     <div class="book-details">
                       <span class="book-price">
-                        <?= htmlspecialchars((string) $book['price'], ENT_QUOTES, 'UTF-8') ?> €
+                      <?= (float) $book["price"] === 0.00
+                          ? "GRATUIT"
+                          : htmlspecialchars((string) $book["price"], ENT_QUOTES, "UTF-8") . " €"
+                      ?>
                       </span>
                     </div>
 
-                    <a href="#" class="book-button">
+                    <a href="../readBook/readBook.php?slug=<?= $book["slug"]?>" class="book-button">
                       Découvrir →
                     </a>
 
